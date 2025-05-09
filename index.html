@@ -103,7 +103,7 @@
             const difference = nextBirthday - today;
     
             // If it's the birthday
-            if (difference <= 0) {
+            if (difference >= 0) {
                 document.getElementById('countdown').innerHTML = "<div class='text-3xl col-span-5'>🎉 Happy Birthday!</div>";
     
                 // Send birthday message via Formspree
