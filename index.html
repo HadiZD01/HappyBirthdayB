@@ -51,9 +51,9 @@
             <h1 class="text-4xl font-light text-amber-800 mb-8">Birthday to be <span id="age">21</span></h1>
             <script>
                 function calculateNextAge() {
-                    const originalBirthday = new Date(2004, 5, 18);
+                    const originalBirthday = new Date(2004, 6, 18);
                     const today = new Date();
-                    const birthday = new Date(today.getFullYear(), 5, 18); // June 18
+                    const birthday = new Date(today.getFullYear(), 6, 18); // June 18
                     const age = today.getFullYear() - originalBirthday.getFullYear();
                     
                     if (today > birthday) {
@@ -93,11 +93,11 @@
         function updateCountdown() {
             const today = new Date();
             const currentYear = today.getFullYear();
-            let nextBirthday = new Date(currentYear, 5, 18); // June 18 (month 5 = June)
+            let nextBirthday = new Date(currentYear, 6, 18); // June 18 (month 5 = June)
     
             // If today is past June 18, set next birthday to next year
             if (today > nextBirthday) {
-                nextBirthday = new Date(currentYear + 1, 5, 18);
+                nextBirthday = new Date(currentYear + 1, 6, 18);
             }
     
             const difference = nextBirthday - today;
