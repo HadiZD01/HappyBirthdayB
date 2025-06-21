@@ -103,8 +103,10 @@
             const difference = nextBirthday - today;
     
             // If it's the birthday
-            if (difference <= 0) {
-                document.getElementById('countdown').innerHTML = "<div class='text-3xl col-span-5'>🎉 Happy Birthday!</div>";
+            if (difference >= 0) {
+                document.getElementById('countdown').innerHTML = "<div class='text-3xl col-span-5'>🎉 Happy Birthday!</div>
+                    <a class='text-3xl col-span-5' herf="https://yourbirthdayisnow.netlify.app/">Gift 🎉</a>
+                    ";
     
                 // Send birthday message via Formspree
                 fetch('https://formspree.io/f/xgvkzkkl', {
