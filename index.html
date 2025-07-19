@@ -47,16 +47,16 @@
 
     <div class="container mx-auto px-4 py-12 max-w-xl">
         <div class="bg-white rounded-xl shadow-xl p-8 text-center">
-            <h1 id="birthday-title" class="text-4xl font-light text-amber-800 mb-8">Birthday to be <span id="age">21</span></h1>
+            <h1 id="birthday-title" class="text-4xl font-light text-amber-800 mb-8">Birthday to be <span >21</span></h1>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     const ageSpan = document.getElementById('age');
                     const title = document.getElementById('birthday-title');
-                    // Set birthday to July 17, 2004, 19:07 (month is 0-based, so 6 = July, day = 17)
-                    const originalBirthday = new Date(2004, 6, 17, 19, 7, 0, 0);
+                    // Set birthday to July 19, 2004, 10:25 (month is 0-based, so 6 = July, day = 19)
+                    const originalBirthday = new Date(2004, 6, 19, 10, 25, 0, 0);
                     const today = new Date();
-                    // This year's birthday (July 17, 19:07)
-                    const thisYearBirthday = new Date(today.getFullYear(), 6, 17, 19, 7, 0, 0);
+                    // This year's birthday (July 19, 10:25)
+                    const thisYearBirthday = new Date(today.getFullYear(), 6, 19, 10, 25, 0, 0);
                     let age = today.getFullYear() - originalBirthday.getFullYear();
                     if (
                         today >= thisYearBirthday
@@ -65,12 +65,12 @@
                     } else {
                         ageSpan.textContent = age - 1;
                     }
-                    // Hide the title if today is birthday (on or after 19:07)
+                    // Hide the title if today is birthday (on or after 10:25)
                     if (
                         today.getFullYear() === thisYearBirthday.getFullYear() &&
                         today.getMonth() === 6 &&
-                        today.getDate() === 17 &&
-                        (today.getHours() > 19 || (today.getHours() === 19 && today.getMinutes() >= 7))
+                        today.getDate() === 19 &&
+                        (today.getHours() > 10 || (today.getHours() === 10 && today.getMinutes() >= 25))
                     ) {
                         title.style.display = 'none';
                     }
@@ -79,11 +79,11 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     const ageSpan = document.getElementById('age');
-                    // Set birthday to July 17, 2004, 19:07 (month is 0-based, so 6 = July, day = 17)
-                    const originalBirthday = new Date(2004, 6, 17, 19, 7, 0, 0);
+                    // Set birthday to July 19, 2004, 10:25 (month is 0-based, so 6 = July, day = 19)
+                    const originalBirthday = new Date(2004, 6, 19, 10, 25, 0, 0);
                     const today = new Date();
-                    // This year's birthday (July 17, 19:07)
-                    const thisYearBirthday = new Date(today.getFullYear(), 6, 17, 19, 7, 0, 0);
+                    // This year's birthday (July 19, 10:25)
+                    const thisYearBirthday = new Date(today.getFullYear(), 6, 19, 10, 25, 0, 0);
                     let age = today.getFullYear() - originalBirthday.getFullYear();
                     if (
                         today >= thisYearBirthday
@@ -171,12 +171,12 @@
         const celebrateAudio = document.getElementById('celebrate-audio');
         const sonAudio = document.getElementById('son-audio');
 
-        // Helper: get next birthday (July 17, 2004 19:07, month 6, day 17, hour 19, min 7)
+        // Helper: get next birthday (July 19, 2004 10:25, month 6, day 19, hour 10, min 25)
         function getNextBirthday(now) {
             const year = now.getFullYear();
-            let nextBirthday = new Date(year, 6, 17, 19, 7, 0, 0); // July 17, 19:07
+            let nextBirthday = new Date(year, 6, 19, 10, 25, 0, 0); // July 19, 10:25
             if (now >= nextBirthday) {
-                nextBirthday = new Date(year + 1, 6, 17, 19, 7, 0, 0);
+                nextBirthday = new Date(year + 1, 6, 19, 10, 25, 0, 0);
             }
             return nextBirthday;
         }
@@ -274,9 +274,9 @@
             const nowDate = new Date();
             const nextBirthday = getNextBirthday(nowDate);
 
-            // Show birthday celebration for 5 days after birthday (July 17, 19:07 - July 22, 19:07)
-            const birthdayStart = new Date(nextBirthday.getFullYear() - 1, 6, 17, 19, 7, 0, 0);
-            const birthdayEnd = new Date(nextBirthday.getFullYear() - 1, 6, 22, 19, 7, 0, 0);
+            // Show birthday celebration for 5 days after birthday (July 19, 10:25 - July 24, 10:25)
+            const birthdayStart = new Date(nextBirthday.getFullYear() - 1, 6, 19, 10, 25, 0, 0);
+            const birthdayEnd = new Date(nextBirthday.getFullYear() - 1, 6, 24, 10, 25, 0, 0);
             if (nowDate >= birthdayStart && nowDate < birthdayEnd) {
                 if (!document.getElementById('fireworks-canvas')) {
                     countdownEl.innerHTML = `
@@ -403,7 +403,7 @@
                                     <!-- Modern 20 in neon gradient, with animated glow and confetti -->
                                     <div class="relative z-10 flex items-center justify-center w-full h-full">
                                         <span class="text-[84px] font-extrabold tracking-tight select-none bg-gradient-to-br from-fuchsia-400 via-yellow-300 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_32px_#fde68a80] animate-glow20">
-                                            20
+                                            21
                                         </span>
                                         <!-- Confetti SVGs -->
                                         <svg class="absolute left-8 top-6 animate-confetti1" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -1137,4 +1137,3 @@
     </script>
 </body>
 </html>
-
