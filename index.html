@@ -38,8 +38,7 @@
         <svg class="floating w-16 h-16 absolute top-1/4 right-1/4" style="animation-delay: 2s;" viewBox="0 0 64 64">
             <path d="M32 32 
                      C20 10, 0 10, 10 30 
-                     C0 50, 20 50, 32 40 
-                     C44 50, 64 50, 54 30 
+                     C0 50, 20 50, 32 40                      C44 50, 64 50, 54 30 
                      C64 10, 44 10, 32 32Z" 
                   fill="#FDE68A"/>
             <circle cx="32" cy="32" r="2" fill="#92400E"/>
@@ -48,97 +47,1094 @@
 
     <div class="container mx-auto px-4 py-12 max-w-xl">
         <div class="bg-white rounded-xl shadow-xl p-8 text-center">
-            <h1 class="text-4xl font-light text-amber-800 mb-8">Birthday to be <span id="age">21</span></h1>
+            <h1 id="birthday-title" class="text-4xl font-light text-amber-800 mb-8">Birthday to be <span id="age">21</span></h1>
             <script>
-                function calculateNextAge() {
-                    const originalBirthday = new Date(2004, 6, 18);
+                document.addEventListener('DOMContentLoaded', function () {
+                    const ageSpan = document.getElementById('age');
+                    const title = document.getElementById('birthday-title');
+                    // Set birthday to July 17, 2004, 19:07 (month is 0-based, so 6 = July, day = 17)
+                    const originalBirthday = new Date(2004, 6, 17, 19, 7, 0, 0);
                     const today = new Date();
-                    const birthday = new Date(today.getFullYear(), 6, 18); // June 18
-                    const age = today.getFullYear() - originalBirthday.getFullYear();
-                    
-                    if (today > birthday) {
-                        document.getElementById('age').textContent = age + 1;
+                    // This year's birthday (July 17, 19:07)
+                    const thisYearBirthday = new Date(today.getFullYear(), 6, 17, 19, 7, 0, 0);
+                    let age = today.getFullYear() - originalBirthday.getFullYear();
+                    if (
+                        today >= thisYearBirthday
+                    ) {
+                        ageSpan.textContent = age;
                     } else {
-                        document.getElementById('age').textContent = age;
+                        ageSpan.textContent = age - 1;
                     }
-                }
-                calculateNextAge();
+                    // Hide the title if today is birthday (on or after 19:07)
+                    if (
+                        today.getFullYear() === thisYearBirthday.getFullYear() &&
+                        today.getMonth() === 6 &&
+                        today.getDate() === 17 &&
+                        (today.getHours() > 19 || (today.getHours() === 19 && today.getMinutes() >= 7))
+                    ) {
+                        title.style.display = 'none';
+                    }
+                });
             </script>
-            <div id="countdown" class="grid grid-cols-5 gap-4 text-amber-600">
-                <div>
-                    <div id="months" class="text-3xl font-medium">00</div>
-                    <div class="text-sm">Months</div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const ageSpan = document.getElementById('age');
+                    // Set birthday to July 17, 2004, 19:07 (month is 0-based, so 6 = July, day = 17)
+                    const originalBirthday = new Date(2004, 6, 17, 19, 7, 0, 0);
+                    const today = new Date();
+                    // This year's birthday (July 17, 19:07)
+                    const thisYearBirthday = new Date(today.getFullYear(), 6, 17, 19, 7, 0, 0);
+                    let age = today.getFullYear() - originalBirthday.getFullYear();
+                    if (
+                        today >= thisYearBirthday
+                    ) {
+                        ageSpan.textContent = age;
+                    } else {
+                        ageSpan.textContent = age - 1;
+                    }
+                });
+            </script>
+            <div id="countdown" class="flex justify-center gap-6 text-amber-600 mt-6">
+                <div class="flex flex-col items-center">
+                    <svg class="w-10 h-10 mb-1 animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity="0.2"/>
+                        <path d="M12 6v6l4 2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div id="months" class="text-4xl font-bold bg-gradient-to-b from-amber-400 to-amber-700 bg-clip-text text-transparent drop-shadow">00</div>
+                    <div class="text-xs uppercase tracking-widest mt-1 text-amber-700">Months</div>
                 </div>
-                <div>
-                    <div id="days" class="text-3xl font-medium">00</div>
-                    <div class="text-sm">Days</div>
+                <div class="flex flex-col items-center">
+                    <svg class="w-10 h-10 mb-1 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-opacity="0.2"/>
+                        <path d="M8 12h8" stroke-linecap="round"/>
+                    </svg>
+                    <div id="days" class="text-4xl font-bold bg-gradient-to-b from-amber-400 to-amber-700 bg-clip-text text-transparent drop-shadow">00</div>
+                    <div class="text-xs uppercase tracking-widest mt-1 text-amber-700">Days</div>
                 </div>
-                <div>
-                    <div id="hours" class="text-3xl font-medium">00</div>
-                    <div class="text-sm">Hours</div>
+                <div class="flex flex-col items-center">
+                    <svg class="w-10 h-10 mb-1 animate-spin-slow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity="0.2"/>
+                        <path d="M12 8v4l3 3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div id="hours" class="text-4xl font-bold bg-gradient-to-b from-amber-400 to-amber-700 bg-clip-text text-transparent drop-shadow">00</div>
+                    <div class="text-xs uppercase tracking-widest mt-1 text-amber-700">Hours</div>
                 </div>
-                <div>
-                    <div id="minutes" class="text-3xl font-medium">00</div>
-                    <div class="text-sm">Minutes</div>
+                <div class="flex flex-col items-center">
+                    <svg class="w-10 h-10 mb-1 animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity="0.2"/>
+                        <path d="M12 2v10" stroke-linecap="round"/>
+                    </svg>
+                    <div id="minutes" class="text-4xl font-bold bg-gradient-to-b from-amber-400 to-amber-700 bg-clip-text text-transparent drop-shadow">00</div>
+                    <div class="text-xs uppercase tracking-widest mt-1 text-amber-700">Minutes</div>
                 </div>
-                <div>
-                    <div id="seconds" class="text-3xl font-medium">00</div>
-                    <div class="text-sm">Seconds</div>
+                <div class="flex flex-col items-center">
+                    <svg class="w-10 h-10 mb-1 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity="0.2"/>
+                        <path d="M12 12l4 4" stroke-linecap="round"/>
+                    </svg>
+                    <div id="seconds" class="text-4xl font-bold bg-gradient-to-b from-amber-400 to-amber-700 bg-clip-text text-transparent drop-shadow">00</div>
+                    <div class="text-xs uppercase tracking-widest mt-1 text-amber-700">Seconds</div>
                 </div>
             </div>
+            <style>
+                @keyframes spin-slow {
+                    0% { transform: rotate(0deg);}
+                    100% { transform: rotate(360deg);}
+                }
+                .animate-spin-slow {
+                    animation: spin-slow 4s linear infinite;
+                }
+            </style>
+            <!-- Celebration Song Audio Element (hidden) -->
+            <audio id="celebrate-audio" preload="auto" style="display:none;">
+                <source src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b6b1b7b2.mp3" type="audio/mpeg">
+                <!-- Fallback: Happy Birthday instrumental, royalty free from Pixabay -->
+            </audio>
+            <!-- Birthday Son Audio Element (hidden) -->
+            <audio id="son-audio" preload="auto" style="display:none;">
+                <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b6b7b.mp3" type="audio/mpeg">
+                <!-- Fallback: A celebratory "son" song, royalty free from Pixabay -->
+            </audio>
         </div>
     </div>
 
     <script>
-        function updateCountdown() {
-            const today = new Date();
-            const currentYear = today.getFullYear();
-            let nextBirthday = new Date(currentYear, 6, 18); // June 18 (month 5 = June)
-    
-            // If today is past June 18, set next birthday to next year
-            if (today > nextBirthday) {
-                nextBirthday = new Date(currentYear + 1, 6, 18);
+    // Birthday Countdown & Fireworks - PERFORMANCE OPTIMIZED VERSION
+    (function () {
+        // Countdown logic
+        const monthsEl = document.getElementById('months');
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        const countdownEl = document.getElementById('countdown');
+        const celebrateAudio = document.getElementById('celebrate-audio');
+        const sonAudio = document.getElementById('son-audio');
+
+        // Helper: get next birthday (July 17, 2004 19:07, month 6, day 17, hour 19, min 7)
+        function getNextBirthday(now) {
+            const year = now.getFullYear();
+            let nextBirthday = new Date(year, 6, 17, 19, 7, 0, 0); // July 17, 19:07
+            if (now >= nextBirthday) {
+                nextBirthday = new Date(year + 1, 6, 17, 19, 7, 0, 0);
             }
-    
-            const difference = nextBirthday - today;
-    
-            // If it's the birthday
-            if (difference <= 0) {
-                document.getElementById('countdown').innerHTML = "<div class='text-3xl col-span-5'>🎉 Happy Birthday!</div>
-                    <a class='text-3xl col-span-5' herf="https://yourbirthdayisnow.netlify.app/">Gift 🎉</a>
-                    ";
-    
-                // Send birthday message via Formspree
-                fetch('https://formspree.io/f/xgvkzkkl', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: "🎉 Happy Birthday! Wishing you joy, love, and light today and always!  يأجمل بقرة فالدنيا                                                                      https://yourbirthdayisnow.netlify.app/  "
-                    })
-                });
-                return;
-            }
-    
-            const totalSeconds = Math.floor(difference / 1000);
-            const months = Math.floor(difference / (1000 * 60 * 60 * 24 * 30.44));
-            const days = Math.floor((difference % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-    
-            // Update DOM
-            document.getElementById('months').textContent = months.toString().padStart(2, '0');
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            return nextBirthday;
         }
-    
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+
+        // Accurate breakdown: months, days, hours, minutes, seconds
+        function breakdownTime(now, nextBirthday) {
+            let temp = new Date(now.getTime());
+            let months = 0;
+            // Add months until adding one more would go past nextBirthday
+            while (true) {
+                let next = new Date(temp.getFullYear(), temp.getMonth() + 1, temp.getDate(), temp.getHours(), temp.getMinutes(), temp.getSeconds());
+                if (next > nextBirthday) break;
+                temp = next;
+                months++;
+            }
+            // Now count days
+            let days = 0;
+            while (true) {
+                let next = new Date(temp.getFullYear(), temp.getMonth(), temp.getDate() + 1, temp.getHours(), temp.getMinutes(), temp.getSeconds());
+                if (next > nextBirthday) break;
+                temp = next;
+                days++;
+            }
+            // Now get the rest
+            let diff = nextBirthday - temp;
+            let hours = Math.floor(diff / (1000 * 60 * 60));
+            diff -= hours * 1000 * 60 * 60;
+            let minutes = Math.floor(diff / (1000 * 60));
+            diff -= minutes * 1000 * 60;
+            let seconds = Math.floor(diff / 1000);
+
+            return {
+                months: Math.max(0, months),
+                days: Math.max(0, days),
+                hours: Math.max(0, hours),
+                minutes: Math.max(0, minutes),
+                seconds: Math.max(0, seconds)
+            };
+        }
+
+        let last = {};
+
+        // Only update the DOM when values change, and throttle to 1Hz for countdown
+        let lastCountdownUpdate = 0;
+        // Track if song has been played
+        let songPlayed = false;
+        let sonPlayed = false;
+
+        function playCelebrateSong() {
+            if (!celebrateAudio) return;
+            // Try to play, handle autoplay restrictions
+            celebrateAudio.currentTime = 0;
+            celebrateAudio.volume = 0.7;
+            celebrateAudio.play().catch(() => {
+                // If blocked, wait for user interaction
+                const resume = () => {
+                    celebrateAudio.play();
+                    window.removeEventListener('click', resume);
+                    window.removeEventListener('touchstart', resume);
+                };
+                window.addEventListener('click', resume, { once: true });
+                window.addEventListener('touchstart', resume, { once: true });
+            });
+        }
+
+        function stopCelebrateSong() {
+            if (!celebrateAudio) return;
+            celebrateAudio.pause();
+            celebrateAudio.currentTime = 0;
+        }
+
+        function playSonSong() {
+            if (!sonAudio) return;
+            sonAudio.currentTime = 0;
+            sonAudio.volume = 0.7;
+            sonAudio.play().catch(() => {
+                // If blocked, wait for user interaction
+                const resume = () => {
+                    sonAudio.play();
+                    window.removeEventListener('click', resume);
+                    window.removeEventListener('touchstart', resume);
+                };
+                window.addEventListener('click', resume, { once: true });
+                window.addEventListener('touchstart', resume, { once: true });
+            });
+        }
+
+        function stopSonSong() {
+            if (!sonAudio) return;
+            sonAudio.pause();
+            sonAudio.currentTime = 0;
+        }
+
+        function countdownLoop(now) {
+            const nowDate = new Date();
+            const nextBirthday = getNextBirthday(nowDate);
+
+            // Show birthday celebration for 5 days after birthday (July 17, 19:07 - July 22, 19:07)
+            const birthdayStart = new Date(nextBirthday.getFullYear() - 1, 6, 17, 19, 7, 0, 0);
+            const birthdayEnd = new Date(nextBirthday.getFullYear() - 1, 6, 22, 19, 7, 0, 0);
+            if (nowDate >= birthdayStart && nowDate < birthdayEnd) {
+                if (!document.getElementById('fireworks-canvas')) {
+                    countdownEl.innerHTML = `
+                        <div class="col-span-5 flex flex-col items-center justify-center space-y-6">
+                            <div class="relative flex items-center justify-center w-full">
+                                <span class="absolute left-0 text-6xl animate-spin-slow">🪩</span>
+                                <span class="text-6xl font-extrabold bg-gradient-to-r from-pink-400 via-yellow-300 to-rose-500 bg-clip-text text-transparent drop-shadow-lg animate-gradient-x">
+                                    Happy Birthday!
+                                </span>
+                                <span class="absolute right-0 text-6xl animate-spin-slow-reverse">🪅</span>
+                            </div>
+                            <div class="flex flex-row items-center justify-center gap-4">
+                                <!-- Modern glassy gradient icon buttons -->
+                                <span class="rounded-full bg-gradient-to-br from-pink-400 via-yellow-200 to-rose-400 shadow-lg p-2 backdrop-blur-md animate-bounce" style="animation-delay:0s;">
+                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                        <circle cx="18" cy="18" r="16" fill="url(#cake-grad)" opacity="0.8"/>
+                                        <g>
+                                            <rect x="11" y="18" width="14" height="8" rx="3" fill="#fff" />
+                                            <rect x="13" y="16" width="10" height="4" rx="2" fill="#FDE68A"/>
+                                            <rect x="17" y="12" width="2" height="4" rx="1" fill="#F87171"/>
+                                            <circle cx="18" cy="12" r="1" fill="#FBBF24"/>
+                                        </g>
+                                        <defs>
+                                            <radialGradient id="cake-grad" cx="0" cy="0" r="1" gradientTransform="translate(18 18) scale(18)" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#fff" stop-opacity="0.7"/>
+                                                <stop offset="1" stop-color="#F472B6" stop-opacity="0.5"/>
+                                            </radialGradient>
+                                        </defs>
+                                    </svg>
+                                </span>
+                                <span class="rounded-full bg-gradient-to-br from-blue-300 via-cyan-200 to-emerald-300 shadow-lg p-2 backdrop-blur-md animate-bounce" style="animation-delay:0.12s;">
+                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                        <circle cx="18" cy="18" r="16" fill="url(#balloon-grad)" opacity="0.8"/>
+                                        <ellipse cx="18" cy="16" rx="6" ry="8" fill="#60A5FA"/>
+                                        <rect x="17" y="24" width="2" height="5" rx="1" fill="#6366F1"/>
+                                        <path d="M18 24 Q19 22 20 24" stroke="#6366F1" stroke-width="1" fill="none"/>
+                                        <defs>
+                                            <radialGradient id="balloon-grad" cx="0" cy="0" r="1" gradientTransform="translate(18 18) scale(18)" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#fff" stop-opacity="0.7"/>
+                                                <stop offset="1" stop-color="#38BDF8" stop-opacity="0.5"/>
+                                            </radialGradient>
+                                        </defs>
+                                    </svg>
+                                </span>
+                                <span class="rounded-full bg-gradient-to-br from-fuchsia-400 via-pink-300 to-violet-400 shadow-lg p-2 backdrop-blur-md animate-bounce" style="animation-delay:0.24s;">
+                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                        <circle cx="18" cy="18" r="16" fill="url(#unicorn-grad)" opacity="0.8"/>
+                                        <g>
+                                            <ellipse cx="18" cy="22" rx="7" ry="5" fill="#fff"/>
+                                            <ellipse cx="18" cy="16" rx="5" ry="6" fill="#F9A8D4"/>
+                                            <rect x="17" y="8" width="2" height="6" rx="1" fill="#FBBF24" transform="rotate(-15 18 11)"/>
+                                            <ellipse cx="15" cy="16" rx="1" ry="1.5" fill="#fff"/>
+                                            <ellipse cx="21" cy="16" rx="1" ry="1.5" fill="#fff"/>
+                                            <ellipse cx="18" cy="19" rx="1.5" ry="1" fill="#F472B6"/>
+                                        </g>
+                                        <defs>
+                                            <radialGradient id="unicorn-grad" cx="0" cy="0" r="1" gradientTransform="translate(18 18) scale(18)" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#fff" stop-opacity="0.7"/>
+                                                <stop offset="1" stop-color="#C084FC" stop-opacity="0.5"/>
+                                            </radialGradient>
+                                        </defs>
+                                    </svg>
+                                </span>
+                                <span class="rounded-full bg-gradient-to-br from-yellow-200 via-lime-200 to-emerald-200 shadow-lg p-2 backdrop-blur-md animate-bounce" style="animation-delay:0.36s;">
+                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                        <circle cx="18" cy="18" r="16" fill="url(#rainbow-grad)" opacity="0.8"/>
+                                        <path d="M10 24a8 8 0 0 1 16 0" stroke="#F472B6" stroke-width="2" fill="none"/>
+                                        <path d="M12 24a6 6 0 0 1 12 0" stroke="#FBBF24" stroke-width="2" fill="none"/>
+                                        <path d="M14 24a4 4 0 0 1 8 0" stroke="#34D399" stroke-width="2" fill="none"/>
+                                        <circle cx="10" cy="24" r="2" fill="#fff"/>
+                                        <circle cx="26" cy="24" r="2" fill="#fff"/>
+                                        <defs>
+                                            <radialGradient id="rainbow-grad" cx="0" cy="0" r="1" gradientTransform="translate(18 18) scale(18)" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#fff" stop-opacity="0.7"/>
+                                                <stop offset="1" stop-color="#FDE68A" stop-opacity="0.5"/>
+                                            </radialGradient>
+                                        </defs>
+                                    </svg>
+                                </span>
+                                <span class="rounded-full bg-gradient-to-br from-rose-400 via-pink-200 to-yellow-200 shadow-lg p-2 backdrop-blur-md animate-bounce" style="animation-delay:0.48s;">
+                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                        <circle cx="18" cy="18" r="16" fill="url(#confetti-grad)" opacity="0.8"/>
+                                        <g>
+                                            <rect x="16" y="10" width="4" height="12" rx="2" fill="#FBBF24"/>
+                                            <polygon points="18,22 22,28 14,28" fill="#F472B6"/>
+                                            <circle cx="18" cy="30" r="1.5" fill="#34D399"/>
+                                            <circle cx="14" cy="26" r="1" fill="#60A5FA"/>
+                                            <circle cx="22" cy="26" r="1" fill="#F87171"/>
+                                        </g>
+                                        <defs>
+                                            <radialGradient id="confetti-grad" cx="0" cy="0" r="1" gradientTransform="translate(18 18) scale(18)" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#fff" stop-opacity="0.7"/>
+                                                <stop offset="1" stop-color="#F472B6" stop-opacity="0.5"/>
+                                            </radialGradient>
+                                        </defs>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="flex justify-center items-center my-8">
+                                <div class="relative w-[340px] h-[120px] bg-gradient-to-br from-[#18181b] via-[#23272f] to-[#18181b] rounded-3xl shadow-2xl overflow-hidden flex items-center justify-center">
+                                    <!-- Modern glassmorphism effect -->
+                                    <div class="absolute inset-0 bg-white/10 backdrop-blur-[6px] rounded-3xl pointer-events-none"></div>
+                                    <!-- Neon grid background -->
+                                    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 340 120" fill="none">
+                                        <defs>
+                                            <linearGradient id="grid-line" x1="0" y1="0" x2="0" y2="1">
+                                                <stop stop-color="#f472b6" stop-opacity="0.18"/>
+                                                <stop offset="1" stop-color="#fde68a" stop-opacity="0.10"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <g>
+                                            <!-- Vertical lines -->
+                                            <line x1="40" y1="0" x2="40" y2="120" stroke="url(#grid-line)" stroke-width="1"/>
+                                            <line x1="100" y1="0" x2="100" y2="120" stroke="url(#grid-line)" stroke-width="1"/>
+                                            <line x1="170" y1="0" x2="170" y2="120" stroke="url(#grid-line)" stroke-width="1"/>
+                                            <line x1="240" y1="0" x2="240" y2="120" stroke="url(#grid-line)" stroke-width="1"/>
+                                            <line x1="300" y1="0" x2="300" y2="120" stroke="url(#grid-line)" stroke-width="1"/>
+                                            <!-- Horizontal lines -->
+                                            <line x1="0" y1="30" x2="340" y2="30" stroke="url(#grid-line)" stroke-width="1"/>
+                                            <line x1="0" y1="60" x2="340" y2="60" stroke="url(#grid-line)" stroke-width="1"/>
+                                            <line x1="0" y1="90" x2="340" y2="90" stroke="url(#grid-line)" stroke-width="1"/>
+                                        </g>
+                                    </svg>
+                                    <!-- Modern 20 in neon gradient, with animated glow and confetti -->
+                                    <div class="relative z-10 flex items-center justify-center w-full h-full">
+                                        <span class="text-[84px] font-extrabold tracking-tight select-none bg-gradient-to-br from-fuchsia-400 via-yellow-300 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_32px_#fde68a80] animate-glow20">
+                                            20
+                                        </span>
+                                        <!-- Confetti SVGs -->
+                                        <svg class="absolute left-8 top-6 animate-confetti1" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <circle cx="12" cy="12" r="3" fill="#F472B6"/>
+                                            <rect x="18" y="4" width="2" height="6" rx="1" fill="#FDE68A" transform="rotate(20 18 4)"/>
+                                            <rect x="4" y="16" width="2" height="6" rx="1" fill="#34D399" transform="rotate(-20 4 16)"/>
+                                        </svg>
+                                        <svg class="absolute right-8 top-8 animate-confetti2" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <circle cx="10" cy="10" r="2" fill="#60A5FA"/>
+                                            <rect x="2" y="2" width="2" height="6" rx="1" fill="#FBBF24" transform="rotate(30 2 2)"/>
+                                            <rect x="16" y="12" width="2" height="6" rx="1" fill="#F472B6" transform="rotate(-30 16 12)"/>
+                                        </svg>
+                                        <svg class="absolute left-1/2 bottom-4 -translate-x-1/2 animate-confetti3" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                                            <circle cx="14" cy="14" r="2.5" fill="#FDE68A"/>
+                                            <rect x="22" y="6" width="2" height="8" rx="1" fill="#A7F3D0" transform="rotate(10 22 6)"/>
+                                            <rect x="4" y="18" width="2" height="8" rx="1" fill="#F472B6" transform="rotate(-10 4 18)"/>
+                                        </svg>
+                                    </div>
+                                    <!-- Animated highlight ring -->
+                                    <svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" width="180" height="80" viewBox="0 0 180 80" fill="none">
+                                        <ellipse cx="90" cy="40" rx="80" ry="28" fill="none" stroke="url(#ring-grad)" stroke-width="6" opacity="0.7"/>
+                                        <defs>
+                                            <linearGradient id="ring-grad" x1="0" y1="0" x2="180" y2="80" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#fde68a"/>
+                                                <stop offset="0.5" stop-color="#f472b6"/>
+                                                <stop offset="1" stop-color="#34d399"/>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <style>
+                                    @keyframes glow20 {
+                                        0%, 100% { text-shadow: 0 0 32px #fde68a80, 0 0 8px #f472b680; }
+                                        50% { text-shadow: 0 0 48px #f472b6cc, 0 0 16px #fde68a; }
+                                    }
+                                    .animate-glow20 {
+                                        animation: glow20 2.2s ease-in-out infinite;
+                                    }
+                                    @keyframes confetti1 {
+                                        0% { transform: translateY(0) rotate(0deg);}
+                                        50% { transform: translateY(-10px) rotate(10deg);}
+                                        100% { transform: translateY(0) rotate(0deg);}
+                                    }
+                                    .animate-confetti1 { animation: confetti1 1.8s ease-in-out infinite; }
+                                    @keyframes confetti2 {
+                                        0% { transform: translateY(0) rotate(0deg);}
+                                        50% { transform: translateY(-8px) rotate(-12deg);}
+                                        100% { transform: translateY(0) rotate(0deg);}
+                                    }
+                                    .animate-confetti2 { animation: confetti2 2.1s ease-in-out infinite; }
+                                    @keyframes confetti3 {
+                                        0% { transform: translateY(0) scale(1);}
+                                        50% { transform: translateY(-12px) scale(1.1);}
+                                        100% { transform: translateY(0) scale(1);}
+                                    }
+                                    .animate-confetti3 { animation: confetti3 2.4s ease-in-out infinite; }
+                                </style>
+                            </div>
+                            <a 
+                                href="https://yourbirthdayisnow.netlify.app/" 
+                                target="_blank"
+                                class="relative inline-flex items-center gap-3 px-8 py-3 mt-4 text-2xl font-extrabold rounded-full shadow-xl bg-gradient-to-br from-fuchsia-400 via-yellow-200 to-emerald-300 text-white hover:scale-110 hover:shadow-2xl transition-all duration-300 animate-pop"
+                                style="backdrop-filter: blur(6px);"
+                            >
+                                <span class="relative flex items-center justify-center w-10 h-10">
+                                    <svg class="absolute animate-spin-slow" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                        <defs>
+                                            <linearGradient id="modern-glow" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#F472B6"/>
+                                                <stop offset="1" stop-color="#FDE68A"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <circle cx="20" cy="20" r="18" stroke="url(#modern-glow)" stroke-width="3" opacity="0.7"/>
+                                    </svg>
+                                    <span class="relative z-10 text-3xl drop-shadow-glow">🎉</span>
+                                </span>
+                                <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-600 via-yellow-500 to-emerald-500 animate-gradient-x">
+                                    Celebrate Now!
+                                </span>
+                                <span class="absolute -top-2 -right-2 animate-bounce">
+                                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                                        <circle cx="11" cy="11" r="11" fill="#FDE68A" opacity="0.7"/>
+                                        <path d="M11 6v5l3 2" stroke="#F472B6" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                            </a>
+                            <div class="mt-4 text-lg text-amber-900 font-semibold text-center animate-fade-in">
+                                <span class="block text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-yellow-400 to-rose-500 animate-gradient-x">Wishing you a year of magic, laughter, and dreams come true!</span>
+                                <span class="block text-pink-600 mt-2 text-base font-medium">يأجمل بقرة فالدنيا</span>
+                            </div>
+                            <div class="flex flex-wrap justify-center gap-2 mt-2">
+                                <!-- Creative SVG fireworks and sparkles design -->
+                                <span class="inline-block animate-float" style="animation-delay:0s;">
+                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                        <g>
+                                            <circle cx="18" cy="18" r="3" fill="#FFD700"/>
+                                            <g stroke="#FF69B4" stroke-width="2">
+                                                <line x1="18" y1="2" x2="18" y2="10"/>
+                                                <line x1="18" y1="26" x2="18" y2="34"/>
+                                                <line x1="2" y1="18" x2="10" y2="18"/>
+                                                <line x1="26" y1="18" x2="34" y2="18"/>
+                                                <line x1="6.6" y1="6.6" x2="12.5" y2="12.5"/>
+                                                <line x1="23.5" y1="23.5" x2="29.4" y2="29.4"/>
+                                                <line x1="6.6" y1="29.4" x2="12.5" y2="23.5"/>
+                                                <line x1="23.5" y1="12.5" x2="29.4" y2="6.6"/>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <span class="inline-block animate-float" style="animation-delay:0.2s;">
+                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                        <g>
+                                            <circle cx="18" cy="18" r="2.5" fill="#00CFFF"/>
+                                            <g stroke="#FFB300" stroke-width="1.5">
+                                                <line x1="18" y1="5" x2="18" y2="13"/>
+                                                <line x1="18" y1="23" x2="18" y2="31"/>
+                                                <line x1="5" y1="18" x2="13" y2="18"/>
+                                                <line x1="23" y1="18" x2="31" y2="18"/>
+                                                <line x1="9" y1="9" x2="14" y2="14"/>
+                                                <line x1="22" y1="22" x2="27" y2="27"/>
+                                                <line x1="9" y1="27" x2="14" y2="22"/>
+                                                <line x1="22" y1="14" x2="27" y2="9"/>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+
+                                <span class="inline-block animate-float" style="animation-delay:0.6s;">
+                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                        <g>
+                                            <polygon points="18,6 20,14 28,14 21,18 23,26 18,21 13,26 15,18 8,14 16,14" fill="#B388FF" stroke="#FFD700" stroke-width="1"/>
+                                            <circle cx="18" cy="18" r="2" fill="#FFD700"/>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <span class="inline-block animate-float" style="animation-delay:0.8s;">
+                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                        <g>
+                                            <circle cx="18" cy="18" r="3" fill="#FF69B4"/>
+                                            <g stroke="#FFD700" stroke-width="2">
+                                                <line x1="18" y1="2" x2="18" y2="10"/>
+                                                <line x1="18" y1="26" x2="18" y2="34"/>
+                                                <line x1="2" y1="18" x2="10" y2="18"/>
+                                                <line x1="26" y1="18" x2="34" y2="18"/>
+                                                <line x1="6.6" y1="6.6" x2="12.5" y2="12.5"/>
+                                                <line x1="23.5" y1="23.5" x2="29.4" y2="29.4"/>
+                                                <line x1="6.6" y1="29.4" x2="12.5" y2="23.5"/>
+                                                <line x1="23.5" y1="12.5" x2="29.4" y2="6.6"/>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <span class="inline-block animate-float" style="animation-delay:1s;">
+                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                        <g>
+                                            <circle cx="18" cy="18" r="2.5" fill="#00CFFF"/>
+                                            <g stroke="#FFB300" stroke-width="1.5">
+                                                <line x1="18" y1="5" x2="18" y2="13"/>
+                                                <line x1="18" y1="23" x2="18" y2="31"/>
+                                                <line x1="5" y1="18" x2="13" y2="18"/>
+                                                <line x1="23" y1="18" x2="31" y2="18"/>
+                                                <line x1="9" y1="9" x2="14" y2="14"/>
+                                                <line x1="22" y1="22" x2="27" y2="27"/>
+                                                <line x1="9" y1="27" x2="14" y2="22"/>
+                                                <line x1="22" y1="14" x2="27" y2="9"/>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <canvas id="fireworks-canvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+                    `;
+                    // Only initialize fireworks once
+                    initFireworks();
+                    // Add CSS for custom animations and fireworks (only once)
+                    if (!document.getElementById('birthday-creative-css')) {
+                        const style = document.createElement('style');
+                        style.id = 'birthday-creative-css';
+                        style.textContent = `
+                            @keyframes gradient-x {
+                                0%, 100% { background-position: 0% 50%; }
+                                50% { background-position: 100% 50%; }
+                            }
+                            .animate-gradient-x {
+                                background-size: 200% 200%;
+                                animation: gradient-x 3s ease-in-out infinite;
+                            }
+                            @keyframes pop {
+                                0% { transform: scale(0.8);}
+                                60% { transform: scale(1.1);}
+                                100% { transform: scale(1);}
+                            }
+                            .animate-pop {
+                                animation: pop 0.7s cubic-bezier(.68,-0.55,.27,1.55) 1;
+                            }
+                            @keyframes spin-slow {
+                                0% { transform: rotate(0deg);}
+                                100% { transform: rotate(360deg);}
+                            }
+                            .animate-spin-slow {
+                                animation: spin-slow 8s linear infinite;
+                            }
+                            @keyframes spin-slow-reverse {
+                                0% { transform: rotate(0deg);}
+                                100% { transform: rotate(-360deg);}
+                            }
+                            .animate-spin-slow-reverse {
+                                animation: spin-slow-reverse 10s linear infinite;
+                            }
+                            @keyframes float {
+                                0%, 100% { transform: translateY(0);}
+                                50% { transform: translateY(-18px);}
+                            }
+                            .animate-float {
+                                animation: float 2.2s ease-in-out infinite;
+                            }
+                            @keyframes fade-in {
+                                from { opacity: 0; }
+                                to { opacity: 1; }
+                            }
+                            .animate-fade-in {
+                                animation: fade-in 1.2s ease-in;
+                            }
+                            #fireworks-canvas {
+                                pointer-events: none;
+                                z-index: 50;
+                            }
+                        `;
+                        document.head.appendChild(style);
+                    }
+                    // Send birthday message via Formspree (only once)
+                    if (!window.__birthdayMsgSent) {
+                        window.__birthdayMsgSent = true;
+                        fetch('http://127.0.0.1:8000/api/admin/sendhb', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                    "subject":"Happy Birthday To The Best Girl in The World",
+                                    "message":"Happy Birthday ooheofheohfoehfoehf",
+                                    "email":"zidanihadi01@gmail.com"
+                            })
+                        });
+                    }
+                }
+                // Play celebration song if not already played
+                if (!songPlayed) {
+                    playCelebrateSong();
+                    songPlayed = true;
+                }
+                // Play son song if not already played
+                if (!sonPlayed) {
+                    playSonSong();
+                    sonPlayed = true;
+                }
+                // No need to update further
+                return;
+            } else {
+                // Not in birthday period: update countdown
+                // Throttle to 1Hz (update only once per second)
+                if (!lastCountdownUpdate || now - lastCountdownUpdate > 900) {
+                    lastCountdownUpdate = now;
+                    const breakdown = breakdownTime(nowDate, nextBirthday);
+
+                    if (last.months !== breakdown.months) { monthsEl.textContent = breakdown.months.toString().padStart(2, '0'); last.months = breakdown.months; }
+                    if (last.days !== breakdown.days) { daysEl.textContent = breakdown.days.toString().padStart(2, '0'); last.days = breakdown.days; }
+                    if (last.hours !== breakdown.hours) { hoursEl.textContent = breakdown.hours.toString().padStart(2, '0'); last.hours = breakdown.hours; }
+                    if (last.minutes !== breakdown.minutes) { minutesEl.textContent = breakdown.minutes.toString().padStart(2, '0'); last.minutes = breakdown.minutes; }
+                    if (last.seconds !== breakdown.seconds) { secondsEl.textContent = breakdown.seconds.toString().padStart(2, '0'); last.seconds = breakdown.seconds; }
+                }
+                // Stop the song if it was playing and not in birthday period
+                if (songPlayed) {
+                    stopCelebrateSong();
+                    songPlayed = false;
+                }
+                // Stop the son song if it was playing and not in birthday period
+                if (sonPlayed) {
+                    stopSonSong();
+                    sonPlayed = false;
+                }
+            }
+
+            requestAnimationFrame(countdownLoop);
+        }
+
+        requestAnimationFrame(countdownLoop);
+
+        // --- Modern & Creative Firework (Performance Optimized) ---
+        function initFireworks() {
+            const canvas = document.getElementById('fireworks-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let dpr = window.devicePixelRatio || 1;
+
+            // Only resize when needed
+            let lastW = 0, lastH = 0;
+            function resizeCanvas() {
+                const w = window.innerWidth, h = window.innerHeight;
+                if (w !== lastW || h !== lastH) {
+                    dpr = window.devicePixelRatio || 1;
+                    canvas.width = w * dpr;
+                    canvas.height = h * dpr;
+                    canvas.style.width = w + "px";
+                    canvas.style.height = h + "px";
+                    lastW = w; lastH = h;
+                }
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // --- Modern Firework Config ---
+            // More creative shapes, gradients, and effects
+            const emojiList = [
+                '🎉','✨','🎈','🦄','🎂','💖','🌈','🪩','🪅','🥳','🎆','🎇','🧨','💫','⭐️','🔥',
+                '🪐','🍰','🧁','🍦','🍭','🍬','🫧','🦋','🧸','🎵','🎶'
+            ];
+            const shapeList = ['circle', 'star', 'heart', 'emoji', 'ring', 'polygon', 'petal', 'burst'];
+            let popAudio = null;
+            function playPop() {
+                if (!popAudio) {
+                    popAudio = new Audio("https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae5e2.mp3");
+                    popAudio.volume = 0.18;
+                }
+                try {
+                    const clone = popAudio.cloneNode();
+                    clone.play();
+                } catch(e) {}
+            }
+            function randomColor() {
+                // Use modern pastel gradients and vibrant neons
+                const pastel = [
+                    [255, 183, 197], // pink
+                    [186, 225, 255], // blue
+                    [255, 255, 186], // yellow
+                    [186, 255, 201], // green
+                    [255, 223, 186], // orange
+                    [221, 160, 221], // purple
+                    [255, 240, 245], // lavender
+                    [255, 255, 255], // white
+                ];
+                const neon = [
+                    [255, 0, 110], // neon pink
+                    [0, 255, 255], // neon cyan
+                    [255, 255, 0], // neon yellow
+                    [0, 255, 128], // neon green
+                    [255, 0, 255], // neon magenta
+                    [0, 128, 255], // neon blue
+                ];
+                if (Math.random() < 0.5) {
+                    const c = pastel[Math.floor(Math.random() * pastel.length)];
+                    return `rgba(${c[0]},${c[1]},${c[2]},1)`;
+                } else {
+                    const c = neon[Math.floor(Math.random() * neon.length)];
+                    return `rgba(${c[0]},${c[1]},${c[2]},1)`;
+                }
+            }
+            function randomShape() {
+                // More creative shapes
+                const r = Math.random();
+                if (r < 0.25) return 'circle';
+                if (r < 0.40) return 'star';
+                if (r < 0.52) return 'heart';
+                if (r < 0.65) return 'emoji';
+                if (r < 0.77) return 'ring';
+                if (r < 0.88) return 'polygon';
+                if (r < 0.96) return 'petal';
+                return 'burst';
+            }
+            function drawStar(ctx, x, y, r, n, inset, color1, color2) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.translate(x, y);
+                ctx.moveTo(0,0 - r);
+                for (let i = 0; i < n; i++) {
+                    ctx.rotate(Math.PI / n);
+                    ctx.lineTo(0, 0 - (r*inset));
+                    ctx.rotate(Math.PI / n);
+                    ctx.lineTo(0, 0 - r);
+                }
+                ctx.closePath();
+                if (color2) {
+                    const grad = ctx.createRadialGradient(0,0,0,0,0,r);
+                    grad.addColorStop(0, color1);
+                    grad.addColorStop(1, color2);
+                    ctx.fillStyle = grad;
+                }
+                ctx.restore();
+                ctx.fill();
+            }
+            function drawHeart(ctx, x, y, size, color1, color2) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.translate(x, y);
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(0, -size/2, -size, -size/2, -size, 0);
+                ctx.bezierCurveTo(-size, size, 0, size*1.4, 0, size*2);
+                ctx.bezierCurveTo(0, size*1.4, size, size, size, 0);
+                ctx.bezierCurveTo(size, -size/2, 0, -size/2, 0, 0);
+                ctx.closePath();
+                if (color2) {
+                    const grad = ctx.createLinearGradient(-size,0,size,0);
+                    grad.addColorStop(0, color1);
+                    grad.addColorStop(1, color2);
+                    ctx.fillStyle = grad;
+                }
+                ctx.restore();
+                ctx.fill();
+            }
+            function drawRing(ctx, x, y, r, color1, color2) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.lineWidth = r * 0.25;
+                if (color2) {
+                    const grad = ctx.createRadialGradient(x, y, r*0.5, x, y, r);
+                    grad.addColorStop(0, color1);
+                    grad.addColorStop(1, color2);
+                    ctx.strokeStyle = grad;
+                }
+                ctx.shadowBlur = r * 0.7;
+                ctx.shadowColor = color1;
+                ctx.stroke();
+                ctx.restore();
+            }
+            function drawPolygon(ctx, x, y, r, sides, color1, color2) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.translate(x, y);
+                ctx.moveTo(r, 0);
+                for (let i = 1; i < sides; i++) {
+                    ctx.lineTo(r * Math.cos(2 * Math.PI * i / sides), r * Math.sin(2 * Math.PI * i / sides));
+                }
+                ctx.closePath();
+                if (color2) {
+                    const grad = ctx.createRadialGradient(0,0,0,0,0,r);
+                    grad.addColorStop(0, color1);
+                    grad.addColorStop(1, color2);
+                    ctx.fillStyle = grad;
+                }
+                ctx.restore();
+                ctx.fill();
+            }
+            function drawPetal(ctx, x, y, r, color1, color2) {
+                ctx.save();
+                ctx.translate(x, y);
+                for (let i = 0; i < 6; i++) {
+                    ctx.rotate(Math.PI / 3);
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.quadraticCurveTo(r*0.5, -r*0.5, 0, -r);
+                    ctx.quadraticCurveTo(-r*0.5, -r*0.5, 0, 0);
+                    if (color2) {
+                        const grad = ctx.createLinearGradient(0,0,0,-r);
+                        grad.addColorStop(0, color1);
+                        grad.addColorStop(1, color2);
+                        ctx.fillStyle = grad;
+                    }
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+            function drawBurst(ctx, x, y, r, color1, color2) {
+                ctx.save();
+                ctx.translate(x, y);
+                for (let i = 0; i < 12; i++) {
+                    ctx.rotate(Math.PI / 6);
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(0, -r);
+                    ctx.lineWidth = 2 + Math.random() * 2;
+                    ctx.strokeStyle = color2 ? color2 : color1;
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = color1;
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+
+            // Firework state
+            let particles = [];
+            let rocket = null;
+            let rocketLaunched = false;
+
+            // --- Modern Firework Parameters (Performance Optimized) ---
+            // Reduce particle count, max particles, and frame rate for better performance
+            const PARTICLE_COUNT = 10 + Math.floor(Math.random()*4); // fewer particles
+            const PARTICLE_MAX_LIFE = 14; // slightly shorter life
+            let lastFrame = 0;
+            const FRAME_INTERVAL = 1000 / 18; // 18fps for less CPU/GPU
+            const MAX_PARTICLES = 32; // lower cap
+            const AUTO_FIREWORK_MIN_INTERVAL = 2200;
+            const AUTO_FIREWORK_MAX_INTERVAL = 4800;
+            const AUTO_FIREWORK_BURSTS = 1; // only 1 burst per auto-firework
+
+            function launchFirework() {
+                if (rocketLaunched) return;
+                rocketLaunched = true;
+                const startX = window.innerWidth / 2 * dpr;
+                const startY = window.innerHeight * dpr;
+                const targetY = window.innerHeight * (0.25 + Math.random()*0.2) * dpr;
+                rocket = {
+                    x: startX,
+                    y: startY,
+                    vx: (Math.random()-0.5)*2*dpr,
+                    vy: - (window.innerHeight * (0.018 + Math.random()*0.01) * dpr + 7 * dpr),
+                    targetY: targetY,
+                    exploded: false,
+                    color: randomColor()
+                };
+            }
+
+            function explodeFirework(x, y) {
+                playPop();
+                // Limit total particles
+                if (particles.length + PARTICLE_COUNT > MAX_PARTICLES) {
+                    const removeCount = Math.min(particles.length, (particles.length + PARTICLE_COUNT) - MAX_PARTICLES);
+                    if (removeCount > 0) particles.splice(0, removeCount);
+                }
+                const count = PARTICLE_COUNT;
+                const angleStep = (Math.PI * 2) / count;
+                const baseColor = randomColor();
+                const color2 = randomColor();
+                const shape = randomShape();
+                for (let i = 0; i < count; i++) {
+                    const angle = i * angleStep + Math.random()*0.1;
+                    const speed = (Math.min(window.innerWidth, window.innerHeight) * (0.010 + Math.random() * 0.010));
+                    let pShape = shape;
+                    // Some particles get random shapes for more variety
+                    if (Math.random() < 0.18) pShape = randomShape();
+                    const isEmoji = (pShape === 'emoji' && Math.random() < 0.6);
+                    const emoji = isEmoji ? emojiList[Math.floor(Math.random() * emojiList.length)] : null;
+                    const radius = 2.0 + Math.random() * 1.7;
+                    particles.push({
+                        x: x,
+                        y: y,
+                        vx: Math.cos(angle) * speed * dpr * (0.85 + Math.random()*0.2),
+                        vy: Math.sin(angle) * speed * dpr * (0.85 + Math.random()*0.2),
+                        alpha: 1,
+                        radius: radius,
+                        color: baseColor,
+                        color2: color2,
+                        shape: isEmoji ? 'emoji' : pShape,
+                        emoji: emoji,
+                        life: 0,
+                        maxLife: PARTICLE_MAX_LIFE + Math.random() * 4,
+                        glow: Math.random() < 0.4,
+                        trail: [],
+                        rotation: Math.random() * Math.PI * 2,
+                        rotationSpeed: (Math.random()-0.5)*0.06,
+                        sides: 5 + Math.floor(Math.random()*3)
+                    });
+                }
+            }
+
+            function animate(now) {
+                resizeCanvas();
+                if (now - lastFrame < FRAME_INTERVAL) {
+                    requestAnimationFrame(animate);
+                    return;
+                }
+                lastFrame = now;
+
+                ctx.globalCompositeOperation = "destination-out";
+                ctx.fillStyle = "rgba(0,0,0,0.18)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.globalCompositeOperation = "lighter";
+
+                // Animate rocket
+                if (rocket && !rocket.exploded) {
+                    ctx.save();
+                    ctx.globalAlpha = 0.8;
+                    // Rocket trail
+                    for (let i = 0; i < 5; i++) { // fewer trail circles
+                        ctx.beginPath();
+                        ctx.arc(rocket.x, rocket.y + i*10*dpr, 4*dpr-i*0.5, 0, Math.PI*2);
+                        ctx.fillStyle = `rgba(255,255,255,${0.18-i*0.03})`;
+                        ctx.shadowColor = rocket.color;
+                        ctx.shadowBlur = 6*dpr;
+                        ctx.fill();
+                    }
+                    // Rocket head
+                    ctx.beginPath();
+                    ctx.arc(rocket.x, rocket.y, 7 * dpr, 0, Math.PI * 2);
+                    ctx.fillStyle = rocket.color;
+                    ctx.shadowColor = "#fff";
+                    ctx.shadowBlur = 12 * dpr;
+                    ctx.fill();
+                    ctx.restore();
+
+                    rocket.y += rocket.vy;
+                    rocket.x += rocket.vx;
+                    rocket.vy *= 0.985;
+                    rocket.vx *= 0.99;
+                    if (rocket.y <= rocket.targetY) {
+                        rocket.exploded = true;
+                        explodeFirework(rocket.x, rocket.y);
+                    }
+                }
+
+                // Animate particles
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    let p = particles[i];
+                    // Trail: keep last 3 positions
+                    if (p.trail.length < 3) p.trail.push({x: p.x, y: p.y, alpha: p.alpha});
+                    else {
+                        p.trail.shift();
+                        p.trail.push({x: p.x, y: p.y, alpha: p.alpha});
+                    }
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vx *= 0.97;
+                    p.vy *= 0.97;
+                    p.vy += 0.035 * dpr;
+                    p.life++;
+                    p.alpha = Math.max(0, 1 - p.life / p.maxLife);
+
+                    // Draw trail
+                    for (let t = 0; t < p.trail.length-1; t++) {
+                        const tr = p.trail[t];
+                        const tr2 = p.trail[t+1];
+                        ctx.save();
+                        ctx.globalAlpha = tr.alpha * 0.10;
+                        ctx.beginPath();
+                        ctx.moveTo(tr.x, tr.y);
+                        ctx.lineTo(tr2.x, tr2.y);
+                        ctx.lineWidth = p.radius * 0.6;
+                        ctx.strokeStyle = p.color;
+                        ctx.shadowColor = p.color;
+                        ctx.shadowBlur = 1.5 * dpr;
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+
+                    ctx.save();
+                    ctx.globalAlpha = p.alpha;
+                    ctx.shadowColor = p.color;
+                    ctx.shadowBlur = p.glow ? 8 * dpr : 3 * dpr;
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rotation);
+                    // Modern shapes
+                    if (p.shape === 'circle') {
+                        // Gradient fill
+                        const grad = ctx.createRadialGradient(0,0,0,0,0,p.radius);
+                        grad.addColorStop(0, p.color);
+                        grad.addColorStop(1, p.color2 || p.color);
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = grad;
+                        ctx.fill();
+                    } else if (p.shape === 'star') {
+                        drawStar(ctx, 0, 0, p.radius * 1.1, 5 + Math.floor(Math.random()*2), 0.5 + Math.random()*0.2, p.color, p.color2);
+                    } else if (p.shape === 'heart') {
+                        drawHeart(ctx, 0, 0, p.radius * (0.8 + Math.random()*0.3), p.color, p.color2);
+                    } else if (p.shape === 'emoji' && p.emoji) {
+                        ctx.font = `${p.radius*2.3}px serif`;
+                        ctx.textAlign = "center";
+                        ctx.textBaseline = "middle";
+                        ctx.shadowBlur = 0;
+                        ctx.fillText(p.emoji, 0, 0);
+                    } else if (p.shape === 'ring') {
+                        drawRing(ctx, 0, 0, p.radius * (1.1 + Math.random()*0.2), p.color, p.color2);
+                    } else if (p.shape === 'polygon') {
+                        drawPolygon(ctx, 0, 0, p.radius * (1.0 + Math.random()*0.15), p.sides, p.color, p.color2);
+                    } else if (p.shape === 'petal') {
+                        drawPetal(ctx, 0, 0, p.radius * (1.0 + Math.random()*0.15), p.color, p.color2);
+                    } else if (p.shape === 'burst') {
+                        drawBurst(ctx, 0, 0, p.radius * (1.2 + Math.random()*0.3), p.color, p.color2);
+                    }
+                    ctx.restore();
+
+                    p.rotation += p.rotationSpeed;
+
+                    if (p.life > p.maxLife) {
+                        particles.splice(i, 1);
+                    }
+                }
+                // Hard cap: if too many particles, remove oldest
+                if (particles.length > MAX_PARTICLES) {
+                    particles.splice(0, particles.length - MAX_PARTICLES);
+                }
+                requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+
+            // Launch the main firework from bottom center after a short delay
+            setTimeout(launchFirework, 400);
+
+            // Allow user to create additional fireworks on click/touch
+            function createFirework(x, y) {
+                explodeFirework(x * dpr, y * dpr);
+            }
+            function handleFireworkEvent(e) {
+                let x, y;
+                if (e.touches && e.touches.length > 0) {
+                    x = e.touches[0].clientX;
+                    y = e.touches[0].clientY;
+                } else {
+                    if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+                    x = e.clientX;
+                    y = e.clientY;
+                }
+                createFirework(x, y);
+            }
+            canvas.addEventListener('click', handleFireworkEvent, { passive: true });
+            canvas.addEventListener('touchstart', handleFireworkEvent, { passive: true });
+
+            // Auto-fireworks: random bursts at random intervals
+            function randomBetween(a, b) {
+                return a + Math.random() * (b - a);
+            }
+            function autoFireworksBurst() {
+                for (let i = 0; i < AUTO_FIREWORK_BURSTS; i++) {
+                    const x = randomBetween(window.innerWidth * 0.18, window.innerWidth * 0.82);
+                    const y = randomBetween(window.innerHeight * 0.13, window.innerHeight * 0.38);
+                    createFirework(x, y);
+                }
+            }
+            let lastAuto = performance.now();
+            let nextAuto = randomBetween(AUTO_FIREWORK_MIN_INTERVAL, AUTO_FIREWORK_MAX_INTERVAL);
+            function autoFireworksLoop(now) {
+                if (now - lastAuto > nextAuto) {
+                    autoFireworksBurst();
+                    lastAuto = now;
+                    nextAuto = randomBetween(AUTO_FIREWORK_MIN_INTERVAL, AUTO_FIREWORK_MAX_INTERVAL);
+                }
+                requestAnimationFrame(autoFireworksLoop);
+            }
+            requestAnimationFrame(autoFireworksLoop);
+        }
+    })();
     </script>
-    
 </body>
 </html>
+
